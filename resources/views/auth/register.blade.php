@@ -43,9 +43,28 @@
                             <label for="departamento" class="col-md-4 col-form-label text-md-right">{{ __('Departamento') }}</label>
 
                             <div class="col-md-6">
-                                <input id="departamento" type="text" class="form-control @error('departamento') is-invalid @enderror" name="departamento" value="{{ old('departamento') }}" required autocomplete="departamento">
+                                <select id="departamento" class="custom-select custom-select-lg mb-3 form-control @error('departamento') is-invalid @enderror" name="departamento" value="{{ old('departamento') }}" required autocomplete="departamento">
+                                    <option selected>Departamento</option>
+                                    <option value="Compras">Compras</option>
+                                    <option value="Ventas">Ventas</option>
+                                    <option value="Almacén">Almacén</option>
+                                  </select>
 
                                 @error('departamento')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="telefono" class="col-md-4 col-form-label text-md-right">{{ __('Telefono') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="telefono" type="number" class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" required autocomplete="telefono" autofocus>
+
+                                @error('telefono')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

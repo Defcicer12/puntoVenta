@@ -15,6 +15,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">E-Mail</th>
                             <th scope="col">Departamento</th>
+                            <th scope="col">Telefono</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -24,6 +25,7 @@
                                 <td>{{$usuario->name}}</td>
                                 <td>{{$usuario->email}}</td>
                                 <td>{{$usuario->departamento}}</td>
+                                <td>{{$usuario->telefono}}</td>
                             </tr>
                           @endforeach
                         </tbody>

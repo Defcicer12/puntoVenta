@@ -33,6 +33,9 @@
                 <a class="navbar-brand" href="{{ url('/productos') }}">
                     {{ 'Productos' }}
                 </a>
+                <a class="navbar-brand" href="{{ url('/create_productos') }}">
+                    {{ 'Agregar productos' }}
+                </a>
                 @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

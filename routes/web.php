@@ -11,6 +11,7 @@
 |
 */
 
+use App\Proveedor;
 use App\User;
 
 Route::get('/', function () {
@@ -23,4 +24,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->get('/lista_usuarios', function () {
     return view('/lists/usuarios',['usuarios' => User::all()]);
+});
+
+Route::middleware('auth')->get('/create_productos', function () {
+    return view('/create/productos',['proveedores' => Proveedor::all()]);
 });
