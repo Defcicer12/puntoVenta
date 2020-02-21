@@ -26,6 +26,5 @@ Route::middleware('auth')->get('/lista_usuarios', function () {
     return view('/lists/usuarios',['usuarios' => User::all()]);
 });
 
-Route::middleware('auth')->get('/create_productos', function () {
-    return view('/create/productos',['proveedores' => Proveedor::all()]);
-});
+
+Route::get('/create_productos', 'ProductosController@visual');

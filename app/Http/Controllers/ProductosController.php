@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Proveedor;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\Rules\Custom_email;
@@ -36,7 +37,12 @@ class ProductosController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
+    }
+
+    public function visual()
+    {
+        return view('create.productos',['proveedores' => Proveedor::all()]);
     }
 
     /**
@@ -51,9 +57,9 @@ class ProductosController extends Controller
             'nombre' => ['required', 'string', 'max:255'],
             'precio' => ['required', 'numeric'],
             'id_proveedor' => ['required', 'numeric', 'exists:proveedor,id'],
-            'existencia' => ['required', 'numeric'],
-            'cantidad_minima' => ['required', 'numeric', 'digits:10'],
-            'cantidad_maxima' => ['required', 'numeric', 'digits:10'],
+            'existencia' => ['required', 'numeric', 'lt:cantidad_maxima'],
+            'cantidad_minima' => ['required', 'numeric', 'lt:cantidad_maxima'],
+            'cantidad_maxima' => ['required', 'numeric','gt:cantidad_minima'],
         ]);
     }
 
@@ -77,26 +83,17 @@ class ProductosController extends Controller
 
     public function addProducto(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'nombre' => ['required', 'string', 'max:255'],
-            'precio' => ['required', 'numeric'],
-            'id_proveedor' => ['required', 'numeric', 'exists:proveedor,id'],
-            'existencia' => ['required', 'numeric'],
-            'cantidad_minima' => ['required', 'numeric', 'digits:10'],
-            'cantidad_maxima' => ['required', 'numeric', 'digits:10'],
-        ]);
-
+        $validator = $this->validator($request->all());
+        //return $validator->errors();
         if ($validator->fails()) {
-            return redirect()
-                ->to('/create_productos')
-                ->withErrors($validator->errors())
-                ->withInput($request->all());
+            return redirect()->to('/create_productos')
+            ->withErrors($validator->errors())
+            ->withInput($request->all());
         }
 
-        $input = request()->all();
-        $user=new User($input);
-        $user->password=bcrypt(request()->password);
-        $user->save();
-        return back()->with('success', 'User created successfully.');
+        $user = $this->create($request->all());
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 }

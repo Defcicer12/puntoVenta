@@ -17,7 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::group(['middleware' => 'web'], function() {
-    Route::post('/productos','ProductosController@addProducto')->name('create-productos');
-});
+Route::post('/productos','ProductosController@addProducto')->name('create-productos');

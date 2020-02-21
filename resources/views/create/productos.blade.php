@@ -6,9 +6,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
-                {{var_dump(Session::all())}}
+
                 <div class="card-body">
-                    <form method="POST" action="{{ route('create-productos') }}">
+                    <form method="POST" action="{{ route('create-productos') }}" enctype="application/json">
                         @csrf
 
                         <div class="form-group row">
@@ -76,7 +76,7 @@
                             <label for="cantidad_minima" class="col-md-4 col-form-label text-md-right">{{ __('Cantidad mínima') }}</label>
 
                             <div class="col-md-6">
-                                <input id="cantidad_minima" type="number" class="form-control @error('cantidad_minima') is-invalid @enderror" name="cantidad_minima" required autocomplete="cantidad_minima">
+                                <input id="cantidad_minima" type="number" class="form-control @error('cantidad_minima') is-invalid @enderror" name="cantidad_minima" value="{{ old('cantidad_minima') }}" required autocomplete="cantidad_minima">
 
                                 @error('cantidad_minima')
                                     <span class="invalid-feedback" role="alert">
@@ -90,7 +90,7 @@
                             <label for="cantidad_maxima" class="col-md-4 col-form-label text-md-right">{{ __('Cantudad Máxima') }}</label>
 
                             <div class="col-md-6">
-                                <input id="cantidad_maxima" type="number" class="form-control @error('cantidad_maxima') is-invalid @enderror" name="cantidad_maxima" required autocomplete="cantidad_maxima">
+                                <input id="cantidad_maxima" type="number" value="{{ old('cantidad_maxima') }}" class="form-control @error('cantidad_maxima') is-invalid @enderror" name="cantidad_maxima" required autocomplete="cantidad_maxima">
 
                                 @error('cantidad_maxima')
                                     <span class="invalid-feedback" role="alert">
