@@ -18,3 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/productos','ProductosController@addProducto')->name('create-productos');
+
+
+Route::group(["namespace"=>"Auth"],function() {
+    Route::post('/usuarios','RegisterController@register')->name('create-usuarios'); // actually calls \App\Http\Controllers\AdminPanel\AdminControllers because of the namespace
+});

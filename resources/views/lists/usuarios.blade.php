@@ -6,7 +6,17 @@
         <div class="col-md-8">
             <div class="card">
             <div class="card-header">Dashboard</div>
-
+                <form action="{{ route('search-usuarios') }}" method="POST" role="search">
+                    @csrf
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="q"
+                            placeholder="Buscar usuarios por nombre"> <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
                 <div class="card-body">
                     <table class="table">
                         <thead>

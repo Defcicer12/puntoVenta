@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Punto de venta') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -30,7 +30,10 @@
                 <a class="navbar-brand" href="{{ url('/lista_usuarios') }}">
                     {{ 'Usuarios' }}
                 </a>
-                <a class="navbar-brand" href="{{ url('/productos') }}">
+                <a class="navbar-brand" href="{{ url('/register') }}">
+                    {{ __('Agregar Usuarios') }}
+                </a>
+                <a class="navbar-brand" href="{{ url('/lista_productos') }}">
                     {{ 'Productos' }}
                 </a>
                 <a class="navbar-brand" href="{{ url('/create_productos') }}">
@@ -54,11 +57,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

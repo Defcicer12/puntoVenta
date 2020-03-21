@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Http\Request;
 use App\Rules\Custom_email;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/register';
 
     /**
      * Create a new controller instance.
@@ -39,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -74,5 +75,21 @@ class RegisterController extends Controller
             'departamento' => $data['departamento'],
             'telefono' => $data['telefono'],
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+        //return $validator->errors();
+        if ($validator->fails()) {
+            return redirect()->to('/register')
+            ->withErrors($validator->errors())
+            ->withInput($request->all());
+        }
+
+        $user = $this->create($request->all());
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 }
